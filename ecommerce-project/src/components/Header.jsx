@@ -9,6 +9,8 @@ import searchIcon from '../assets/images/icons/search-icon.png'
 const Header = ({ cart }) => {
     let totalQuantity = 0;
 
+    console.log(cart)
+
     cart.forEach(cartItem => {
         totalQuantity += cartItem.quantity
     });
