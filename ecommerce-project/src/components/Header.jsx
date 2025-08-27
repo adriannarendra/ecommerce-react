@@ -11,7 +11,7 @@ const Header = ({ cart }) => {
 
     console.log(cart)
 
-    cart.forEach(cartItem => {
+    cart && cart.forEach(cartItem => {
         totalQuantity += cartItem.quantity
     });
 
