@@ -1,18 +1,28 @@
 import React from 'react'
 import dayjs from 'dayjs'
 import { formatMoney } from '../../utils/money'
+import axios from 'axios'
 
-const DeliveryOptions = ({ cartItem, deliveryOptions }) => {
+const DeliveryOptions = ({ cartItem, deliveryOptions, loadCart }) => {
     return (
         <div className="delivery-options">
             <div className="delivery-options-title">
                 Choose a delivery option:
             </div>
             {deliveryOptions.map((deliveryOption) => {
+                const updateDeliveryOption = async () => {
+                    // backend convention, when you want to update something, the id is in url
+                    await axios.put(`/api/cart-items/${cartItem.productId}`, {
+                        deliveryOptionId: deliveryOption.id
+                    }),
+                    await loadCart();
+                }
+
                 return (
-                    <div key={deliveryOption.id} className="delivery-option">
+                    <div key={deliveryOption.id} onClick={updateDeliveryOption} className="delivery-option">
                         <input type="radio"
                             checked={deliveryOption.id === cartItem.deliveryOptionId}
+                            onChange={() => {}}
                             className="delivery-option-input"
                             name={`delivery-option-${cartItem.productId}`} />
                         <div>
