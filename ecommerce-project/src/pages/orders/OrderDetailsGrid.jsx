@@ -6,7 +6,9 @@ import { Link } from 'react-router'
 const OrderDetailsGrid = ({ order }) => {
     return (
         <div className="order-details-grid">
-            {order.products.map((orderProduct) => {
+            {order.products.map((orderProduct, index) => {
+                let productId = order.products[index].productId;
+
                 return (
                     <Fragment key={orderProduct.id}>
                         <div className="product-image-container">
@@ -30,7 +32,7 @@ const OrderDetailsGrid = ({ order }) => {
                         </div>
 
                         <div className="product-actions">
-                            <Link to="/tracking">
+                            <Link to={`/tracking/${order.id}/${productId}`}>
                                 <button className="track-package-button button-secondary">
                                     Track package
                                 </button>
