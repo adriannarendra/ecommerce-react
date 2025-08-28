@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 
 const TrackingPage = ({ cart }) => {
     const { orderId, productId } = useParams()
-    const [ order, setOrder ] = useState(null)
+    const [order, setOrder] = useState(null)
 
     useEffect(() => {
         const fetchOrderById = async () => {
@@ -24,10 +24,16 @@ const TrackingPage = ({ cart }) => {
         return product.productId === productId
     })
 
-    const deliveryTimeMs = product.estimatedDeliveryTimeMs-order.orderTimeMs;
-    const timePassedMs = dayjs().valueOf()-order.orderTimeMs;
-    let deliveryPercentage = timePassedMs/deliveryTimeMs * 100;
+    const deliveryTimeMs = product.estimatedDeliveryTimeMs - order.orderTimeMs;
+    const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+    let deliveryPercentage = timePassedMs / deliveryTimeMs * 100;
     if (deliveryPercentage > 100) deliveryPercentage = 100;
+    const status = {
+        isPreparing: deliveryPercentage < 33 ? deliveryPercentage : null,
+        isShipped: deliveryPercentage >= 33 && deliveryPercentage < 100 ? deliveryPercentage : null,
+        isDelivered: deliveryPercentage === 100 ? deliveryPercentage : null,
+    }
+
     console.log(deliveryPercentage)
 
     return (
@@ -58,19 +64,19 @@ const TrackingPage = ({ cart }) => {
                     <img className="product-image" src={product.product.image} />
 
                     <div className="progress-labels-container">
-                        <div className="progress-label">
+                        <div className={`progress-label ${status.isPreparing && 'current-status'}`}>
                             Preparing
                         </div>
-                        <div className="progress-label current-status">
+                        <div className={`progress-label ${status.isShipped && 'current-status'}`}>
                             Shipped
                         </div>
-                        <div className="progress-label">
+                        <div className={`progress-label ${status.isDelivered && 'current-status'}`}>
                             Delivered
                         </div>
                     </div>
 
                     <div className="progress-bar-container">
-                        <div style={{width: `${deliveryPercentage}%`}} className="progress-bar"></div>
+                        <div style={{ width: `${deliveryPercentage}%` }} className="progress-bar"></div>
                     </div>
                 </div>
             </div>

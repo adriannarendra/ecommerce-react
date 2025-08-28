@@ -2,10 +2,10 @@ import React from 'react'
 import Header from '../components/Header'
 import './PageNotFound.css'
 
-const PageNotFound = () => {
+const PageNotFound = ({ cart }) => {
     return (
         <>
-            <Header />
+            <Header cart={cart} />
             <h1>404 Not Found</h1>
         </>
     )
