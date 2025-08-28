@@ -10,21 +10,21 @@ const CheckoutPage = ({ cart }) => {
     const [paymentSummary, setPaymentSummary] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/delivery-options?expand=estimatedDeliveryTime')
-            .then((res) => {
-                setDeliveryOptions(res.data)
-            })
+        const fetchCheckoutData = async () => {
+            let res = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime')
+            setDeliveryOptions(res.data)
 
-        axios.get('/api/payment-summary')
-            .then((res) => {
-                setPaymentSummary(res.data)
-            })
+            res = await axios.get('/api/payment-summary')
+            setPaymentSummary(res.data)
+        }
+
+        fetchCheckoutData()
     }, [])
 
     return (
         <>
             <title>Checkout</title>
-            <link rel="icon" href="images/cart-favicon.png" type="image/x-icon" />
+            <link rel="icon" href="cart-favicon.png" type="image/x-icon" />
 
             <CheckoutHeader />
 

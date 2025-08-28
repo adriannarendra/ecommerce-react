@@ -6,7 +6,7 @@ const TrackingPage = () => {
     return (
         <>
             <title>Tracking</title>
-            <link rel="icon" href="images/tracking-favicon.png" type="image/x-icon" />
+            <link rel="icon" href="tracking-favicon.png" type="image/x-icon" />
 
             <Header />
 

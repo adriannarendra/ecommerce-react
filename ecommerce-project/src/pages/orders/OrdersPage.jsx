@@ -20,7 +20,7 @@ export const OrdersPage = ({ cart }) => {
     return (
         <>
             <title>Orders</title>
-            <link rel="icon" href="images/orders-favicon.png" type="image/x-icon" />
+            <link rel="icon" href="orders-favicon.png" type="image/x-icon" />
 
             <Header cart={cart} />
 

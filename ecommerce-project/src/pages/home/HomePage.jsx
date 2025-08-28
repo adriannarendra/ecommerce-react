@@ -7,18 +7,21 @@ import ProductsGrid from './ProductsGrid'
 
 const HomePage = ({ cart }) => {
     const [products, setProducts] = useState([]);
-    
+
+    // useeffect cannot return a promise hence the inner function
     useEffect(() => {
-        axios.get('/api/products')
-            .then((res) => {
-                setProducts(res.data)
-            })
+        const getHomedata = async () => {
+            const res = await axios.get('/api/products')
+            setProducts(res.data)
+        }
+
+        getHomedata()
     }, [])
 
     return (
         <>
             <title>Ecommerce Project</title>
-            <link rel="icon" href="images/home-favicon.png" type="image/x-icon" />
+            <link rel="icon" href="home-favicon.png" type="image/x-icon" />
 
             <Header cart={cart} />
 
