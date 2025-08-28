@@ -5,7 +5,7 @@ import './HomePage.css'
 import Header from '../../components/Header'
 import ProductsGrid from './ProductsGrid'
 
-const HomePage = ({ cart }) => {
+const HomePage = ({ cart, loadCart }) => {
     const [products, setProducts] = useState([]);
 
     // useeffect cannot return a promise hence the inner function
@@ -27,7 +27,7 @@ const HomePage = ({ cart }) => {
             <Header cart={cart} />
 
             <div className="home-page">
-                {<ProductsGrid products={products} />}
+                {<ProductsGrid products={products} loadCart={loadCart} />}
             </div>
         </>
     )
