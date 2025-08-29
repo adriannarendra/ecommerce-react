@@ -5,13 +5,18 @@ import axios from 'axios'
 
 const Product = ({ product, loadCart }) => {
     const [quantity, setQuantity] = useState(1);
+    const [isAdded, setIsAdded] = useState(false)
 
     const addToCart = async () => {
         await axios.post('/api/cart-items', {
             productId: product.id,
             quantity: quantity
-        }),
-            await loadCart()
+        })
+        await loadCart()
+        setIsAdded(true)
+        setTimeout(() => {
+            setIsAdded(prev => !prev)
+        }, 2000);
     }
 
     const selectQuantity = (e) => setQuantity(Number(e.target.value))
@@ -54,7 +59,7 @@ const Product = ({ product, loadCart }) => {
 
             <div className="product-spacer"></div>
 
-            <div className="added-to-cart">
+            <div style={{ opacity: isAdded ? 1 : 0 }} className="added-to-cart">
                 <img src={checkmarkIcon} />
                 Added
             </div>
