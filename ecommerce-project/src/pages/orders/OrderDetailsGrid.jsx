@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import dayjs from 'dayjs'
-import buyAgainLogo from '../../assets/images/icons/buy-again.png'
 import { Link } from 'react-router'
+import OrderDetailsGridButton from './OrderDetailsGridButton'
 
 const OrderDetailsGrid = ({ order }) => {
     return (
@@ -25,10 +25,7 @@ const OrderDetailsGrid = ({ order }) => {
                             <div className="product-quantity">
                                 Quantity: {orderProduct.quantity}
                             </div>
-                            <button className="buy-again-button button-primary">
-                                <img className="buy-again-icon" src={buyAgainLogo} />
-                                <span className="buy-again-message">Add to Cart</span>
-                            </button>
+                            <OrderDetailsGridButton productId={productId} />
                         </div>
 
                         <div className="product-actions">

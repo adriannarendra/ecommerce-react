@@ -13,7 +13,6 @@ const HomePage = ({ cart, loadCart }) => {
         const getHomedata = async () => {
             const res = await axios.get('/api/products')
             setProducts(res.data)
-            console.log(res.data)
         }
 
         getHomedata()
