@@ -15,9 +15,9 @@ const HomePage = ({ cart, loadCart }) => {
     // useeffect cannot return a promise hence the inner function
     useEffect(() => {
         const getHomedata = async () => {
-            const urlPath = searchValue === '' ? '/api/products' : `/api/products?search=${searchValue}` 
+            console.log(searchValue)
+            const urlPath = searchValue === '' ? '/api/products' : `/api/products?search=${searchValue}`
             const res = await axios.get(urlPath)
-            if (res.data.length === 0) {navigate('/*')}
             setProducts(res.data)
         }
 
@@ -25,16 +25,30 @@ const HomePage = ({ cart, loadCart }) => {
     }, [searchValue])
 
     return (
-        <>
-            <title>Ecommerce Project</title>
-            <link rel="icon" href="home-favicon.png" type="image/x-icon" />
+        products.length === 0
+            ?
+                <>
+                <title>Ecommerce Project</title>
+                <link rel="icon" href="home-favicon.png" type="image/x-icon" />
 
-            <Header cart={cart} />
+                <Header cart={cart} />
 
-            <div className="home-page">
-                {<ProductsGrid products={products} loadCart={loadCart} />}
-            </div>
-        </>
+                <div className="home-page">
+                    <h3>Item not found</h3>
+                    <button onClick={() => {navigate('/?search=')}}>Go Back</button>
+                </div>
+            </>
+            :
+            <>
+                <title>Ecommerce Project</title>
+                <link rel="icon" href="home-favicon.png" type="image/x-icon" />
+
+                <Header cart={cart} />
+
+                <div className="home-page">
+                    {<ProductsGrid products={products} loadCart={loadCart} />}
+                </div>
+            </>
     )
 }
 
