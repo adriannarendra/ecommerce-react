@@ -48,6 +48,14 @@ const CartItemDetails = ({ cartItem, loadCart }) => {
                                 <input
                                     value={quantity}
                                     onChange={setItemQuantity}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            updateItemQuantity()
+                                        } else if (e.key === 'Escape') {
+                                            setIsUpdate(false)
+                                            setQuantity(cartItem.quantity)
+                                        }
+                                    }}
                                     type="number"
                                     style={{ width: '50px' }}
                                 />
