@@ -25,16 +25,18 @@ const TrackingPage = ({ cart }) => {
     })
 
     const deliveryTimeMs = product.estimatedDeliveryTimeMs - order.orderTimeMs;
+
     const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+
     let deliveryPercentage = timePassedMs / deliveryTimeMs * 100;
+
     if (deliveryPercentage > 100) deliveryPercentage = 100;
+
     const status = {
         isPreparing: deliveryPercentage < 33 ? deliveryPercentage : null,
         isShipped: deliveryPercentage >= 33 && deliveryPercentage < 100 ? deliveryPercentage : null,
         isDelivered: deliveryPercentage === 100 ? deliveryPercentage : null,
     }
-
-    console.log(deliveryPercentage)
 
     return (
         <>

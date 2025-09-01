@@ -4,19 +4,25 @@ import React from 'react'
 import './HomePage.css'
 import Header from '../../components/Header'
 import ProductsGrid from './ProductsGrid'
+import { useNavigate, useSearchParams } from 'react-router'
 
 const HomePage = ({ cart, loadCart }) => {
     const [products, setProducts] = useState([]);
+    const [searchParams] = useSearchParams();
+    const searchValue = searchParams.get('search');
+    const navigate = useNavigate()
 
     // useeffect cannot return a promise hence the inner function
     useEffect(() => {
         const getHomedata = async () => {
-            const res = await axios.get('/api/products')
+            const urlPath = searchValue === '' ? '/api/products' : `/api/products?search=${searchValue}` 
+            const res = await axios.get(urlPath)
+            if (res.data.length === 0) {navigate('/*')}
             setProducts(res.data)
         }
 
         getHomedata()
-    }, [])
+    }, [searchValue])
 
     return (
         <>
